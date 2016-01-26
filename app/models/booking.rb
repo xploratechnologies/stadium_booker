@@ -4,7 +4,7 @@ class Booking < ActiveRecord::Base
   validate :difference_is_greater_than_one_hour
   validate :checkin_is_lesser
   validate :is_valid_datetime
-
+  validate :is_check_out_is_max_1_hour
   belongs_to :user
 
   scope :all_bookings, -> { order(checkin: "ASC")}
@@ -16,8 +16,14 @@ class Booking < ActiveRecord::Base
   end
 
   def checkin_is_lesser  
-    if checkin > checkout
+    if checkin >= checkout
       errors.add(:checkin, 'should be less than Checkout date') 
+    end
+  end
+
+  def is_check_out_is_max_1_hour
+    if (checkin  < (checkout - 1.hour) )
+      errors.add("Dates", 'difference should not be greater than one hour') 
     end
   end
 
