@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :bookings
   root 'site#index'
 
   devise_for :users
