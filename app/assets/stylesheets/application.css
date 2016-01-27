@@ -11,12 +11,8 @@
  * file per style scope.
  *
  *= require_tree .
- *= require 'font-awesome'
  *= require_self
  */
-body{
-  background-image: url('1.jpg');
-}
 .card{
   padding: 5% !important;
 }

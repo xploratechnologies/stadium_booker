@@ -21,14 +21,14 @@ $(function(){
   	minDate: new Date()
   });
   $('.collapsible').collapsible();
-
-  $('.container').on('mouseover click mouseenter', '.datetimepicker', function(){
-  	$('.datetimepicker').datetimepicker({
-  	  minDate: new Date()
-  	});
-  })
-  $('.col').on('mouseover click mouseenter', '.collapsible', function(){
-  	$('.collapsible').collapsible();	
-  })
 });
+
+$(document).on('mouseover click mouseenter', '.datetimepicker', function(){
+  $('.datetimepicker').datetimepicker({
+    minDate: new Date()
+  });
+})
+$(document).on('mouseover click mouseenter', '.collapsible', function(){
+  $('.collapsible').collapsible();  
+})
 

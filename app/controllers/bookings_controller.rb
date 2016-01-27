@@ -17,11 +17,16 @@ class BookingsController < ApplicationController
     @booking = Booking.new(booking_params)
     @booking_conflict = @booking.conflicts(booking_params)
     respond_to do |format|
-      if @booking.save
-        format.html { redirect_to bookings_path, notice: 'Booking was successfully done.' }
-        format.json { render :json, status: :created, location: @booking }
+      unless @booking_conflict
+        if @booking.save
+          format.html { redirect_to bookings_path, notice: 'Booking was successfully done.' }
+          format.json { render :json, status: :created, location: @booking }
+        else
+          format.html { render :new }
+          format.json { render json: @booking.errors, status: :unprocessable_entity }
+        end
       else
-        format.html { render :new }
+        format.html { render :edit }
         format.json { render json: @booking.errors, status: :unprocessable_entity }
       end
     end
@@ -40,7 +45,7 @@ class BookingsController < ApplicationController
         end
       else
         format.html { render :edit }
-        format.json { render json: @booking.errors, status: "Already booked in this intervel" }
+        format.json { render json: @booking.errors, status: :unprocessable_entity }
       end
     end
   end
