@@ -13,3 +13,17 @@
  *= require_tree .
  *= require_self
  */
+body{
+  background-image: url('1.jpg');
+}
+.card{
+  padding: 5% !important;
+}
+.card:hover{
+  color: black;
+  background-color: white;
+}
+.opacity{
+  color:white;
+  background: rgba(25, 25, 25, .5);
+}
