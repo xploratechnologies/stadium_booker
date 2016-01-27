@@ -22,12 +22,12 @@ $(function(){
   });
   $('.collapsible').collapsible();
 
-  $('body').on('mouseover click', '.datetimepicker', function(){
+  $('.container').on('mouseover click mouseenter', '.datetimepicker', function(){
   	$('.datetimepicker').datetimepicker({
   	  minDate: new Date()
   	});
   })
-  $('body').on('mouseover click', '.collapsible', function(){
+  $('.col').on('mouseover click mouseenter', '.collapsible', function(){
   	$('.collapsible').collapsible();	
   })
 });

@@ -10,35 +10,47 @@ class Booking < ActiveRecord::Base
   scope :all_bookings, -> { order(checkin: "ASC")}
 
   def difference_is_greater_than_one_hour
-    if (checkin + 1.hour) > checkout 
-      errors.add("Dates", 'difference should be less than one hour') 
+    begin
+      if (checkin + 1.hour) > checkout 
+        errors.add("Dates", 'difference should be less than one hour') 
+      end
+    rescue
     end
   end
 
   def checkin_is_lesser
-    if checkin > checkout
-      errors.add(:checkin, 'should be less than Checkout date') 
+    begin
+      if checkin > checkout
+        errors.add(:checkin, 'should be less than Checkout date') 
+      end
+    rescue
     end
   end
 
   def conflicts(param)
-    Booking.all.each do |booking|
-      if !(Time.parse(booking.checkout.to_s)  <= Time.parse(param[:checkin].to_s) ||
-      Time.parse(booking.checkin.to_s) >= Time.parse(param[:checkout].to_s))
-        self.errors.add('Stadium','Already booked in this interval')
-        return booking
-      else
-        nil
+    begin 
+      Booking.all.each do |booking|
+        if !(Time.parse(booking.checkout.to_s)  <= Time.parse(param[:checkin].to_s) ||
+        Time.parse(booking.checkin.to_s) >= Time.parse(param[:checkout].to_s))
+          self.errors.add('Stadium','Already booked in this interval')
+          return booking
+        else
+          nil
+        end
       end
+    rescue
     end
   end
 
   def is_valid_datetime
-    if ((DateTime.parse(checkin.to_s) rescue ArgumentError) == ArgumentError)
-      errors.add(:checkin, 'Checkin must be a valid datetime')
-    end
-    if ((DateTime.parse(checkout.to_s) rescue ArgumentError) == ArgumentError)
-      errors.add(:checkout, 'Checkout must be a valid datetime')
+    begin
+      if ((DateTime.parse(checkin.to_s) rescue ArgumentError) == ArgumentError)
+        errors.add(:checkin, 'must be a valid datetime')
+      end
+      if ((DateTime.parse(checkout.to_s) rescue ArgumentError) == ArgumentError)
+        errors.add(:checkout, 'must be a valid datetime')
+      end
+    rescue
     end
   end
 end

@@ -25,7 +25,6 @@
               = booked_by(booking.user_id)
               %br
               - if current_user.id == booking.user_id
-                = link_to 'Show', booking
                 = link_to 'Edit', edit_booking_path(booking)
                 = link_to 'Cancel', booking, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
