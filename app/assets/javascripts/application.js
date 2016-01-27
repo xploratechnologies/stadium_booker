@@ -17,4 +17,18 @@
 
 $(function(){
   $(".button-collapse").sideNav();
+  $('.datetimepicker').datetimepicker({
+  	minDate: new Date()
+  });
+  $('.collapsible').collapsible();
+
+  $('body').on('mouseover click', '.datetimepicker', function(){
+  	$('.datetimepicker').datetimepicker({
+  	  minDate: new Date()
+  	});
+  })
+  $('body').on('mouseover click', '.collapsible', function(){
+  	$('.collapsible').collapsible();	
+  })
 });
+

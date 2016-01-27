@@ -1,0 +1,36 @@
+.row.white_text.min_height
+  .col.s12.m6.l6
+    %h5.green_text
+      = notice
+    %h5 All Bookings
+    %ul.collapsible{"data-collapsible" => "accordion"}
+      - @bookings.each do |booking|
+        %li
+          .collapsible-header{ class: "#{current_user.id == booking.user_id ? 'blue' : '' }"}
+            %b
+              Start at:
+              = booking.checkin
+          .collapsible-body
+            %p
+              %b
+                From
+              = booking.checkin
+              %br
+              %b
+                To
+              = booking.checkout
+              %br
+              %b
+                Booked By:
+              = booked_by(booking.user_id)
+              %br
+              - if current_user.id == booking.user_id
+                = link_to 'Show', booking
+                = link_to 'Edit', edit_booking_path(booking)
+                = link_to 'Cancel', booking, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+  .col.s12.m6.l6
+    %h5 
+      Book the stadium now !
+
+    = link_to 'Book Now', new_booking_path,  class: 'btn'
